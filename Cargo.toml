@@ -7,4 +7,22 @@ readme = "README.md"
 repository = "https://github.com/edward-scroop/hashsum"
 license = "GPL-3.0-or-later"
 
+[profile.dev]
+opt-level = 2
+debug = "full"
+strip = "none"
+lto = "off"
+panic = "abort"
+incremental = true
+codegen-units = 256
+
+[profile.release]
+opt-level = 3
+debug = "full"
+strip = "none"
+lto = "thin"
+panic = "abort"
+incremental = false
+codegen-units = 16
+
 [dependencies]

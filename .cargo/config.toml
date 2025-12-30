@@ -1,0 +1,6 @@
+[build]
+target = "host-tuple"
+rustflags = ["-C", "target-cpu=native"]
+
+[future-incompat-report]
+frequency = 'always'
