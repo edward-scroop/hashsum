@@ -5,7 +5,7 @@ use crate::hash_algorithm::{Hash, md5::MD5};
 use std::{
     env::{self},
     fs::File,
-    io::{self, Read},
+    io::{self, BufReader},
     process,
 };
 
@@ -13,6 +13,7 @@ mod hash_algorithm;
 
 const KIB: usize = 1024;
 const MIB: usize = 1024 * KIB;
+#[allow(dead_code)]
 const GIB: usize = 1024 * MIB;
 const FILE_BUFFER: usize = 512 * MIB;
 
@@ -26,6 +27,7 @@ fn main() {
 
     while counter < args.len() {
         let mut data: Vec<u8>;
+        let hashed_result: String;
 
         if args[counter] == "-" || counter == 0 {
             // Read data from stdin
@@ -43,29 +45,28 @@ fn main() {
             }
 
             data = stdin.clone().into_bytes();
+            hashed_result = MD5::hash_slice(&mut data);
         } else {
             // Read data from file passed as argument
-            let mut file_handle = match File::open(&args[counter]) {
+            let file_handle = match File::open(&args[counter]) {
+                Ok(f) => f,
                 Err(e) => {
                     eprintln!("Error opening file {}: {}", args[counter], e);
                     process::exit(1);
                 }
-                Ok(f) => f,
             };
 
-            data = Vec::with_capacity(64 * MIB);
-            let file_result = file_handle.read_to_end(&mut data);
+            let message = BufReader::with_capacity(FILE_BUFFER, file_handle);
 
-            match file_result {
+            hashed_result = match MD5::hash_stream(message) {
+                Ok(f) => f,
                 Err(e) => {
-                    eprintln!("Error loading file {}: {}", args[counter], e);
+                    eprintln!("Error opening file {}: {}", args[counter], e);
                     process::exit(1);
                 }
-                Ok(_) => (),
-            };
+            }
         }
 
-        let hashed_result = MD5::hash_slice(&mut data);
         if counter != 0 {
             println!("{} {}", hashed_result, args[counter]);
         } else {
