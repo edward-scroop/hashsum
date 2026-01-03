@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // SPDX-FileCopyrightText: Copyright 2025 Edward Scroop <edward.scroop@gmail.com>
 
-use crate::hash_algorithm::{Hash, md5::MD5};
+use crate::hash_algorithm::{Hash, md5::MD5, sha1::SHA1};
 use std::{
     env::{self},
     fmt::Display,
@@ -35,10 +35,12 @@ Mandatory arguments to long options are mandatory for short options too.
     -V, --version             Output version information and exit.
 
 DIGEST determines the digest algorithm and default output format:
-    md5";
+    md5
+    sha1";
 const HELP_INFO_STRING: &str = "Try \'hashsum --help\' for more information.";
 const HELP_ALGORITHM_ARGUMENTS: &str = "Valid arguments are:
-    - \'md5\'";
+    - \'md5\'
+    - \'sha1\'";
 
 fn print_help_unrecognised_option(arg: impl Display) {
     println!("hashsum: unrecognised option \'{arg}\'\n{HELP_INFO_STRING}");
@@ -54,6 +56,10 @@ fn print_help_invalid_argument(arg: impl Display, option: impl Display, valid_ar
     println!(
         "hashsum: invalid argument \'{arg}\' for \'{option}\'\n{valid_arguments}\n{HELP_INFO_STRING}"
     );
+    process::exit(1);
+}
+fn print_help_option_requires_argument(arg: impl Display) {
+    println!("hashsum: option requires an argument -- '{arg}'\n{HELP_INFO_STRING}");
     process::exit(1);
 }
 
@@ -81,6 +87,7 @@ struct State {
 
 enum Algorithm {
     MD5,
+    SHA1,
 }
 
 impl State {
@@ -107,7 +114,42 @@ impl State {
 
             match arg_slice {
                 "-a" if !end_of_command_options => {
-                    todo!();
+                    if args.len() == 2 {
+                        let next_arg = args_iter.next();
+                        algorithm = match next_arg {
+                            Some(arg) => match arg.as_str() {
+                                "md5" => Algorithm::MD5,
+                                "sha1" => Algorithm::SHA1,
+                                _ => {
+                                    print_help_invalid_argument(
+                                        arg,
+                                        "-a",
+                                        HELP_ALGORITHM_ARGUMENTS,
+                                    );
+                                    // Redudant as rust can't see that print_help_invalid_argument exits aswell.
+                                    process::exit(1);
+                                }
+                            },
+                            None => {
+                                print_help_option_requires_argument("-a");
+                                // Redudant as rust can't see that print_help_invalid_argument exits aswell.
+                                process::exit(1);
+                            }
+                        }
+                    } else {
+                        algorithm = match &argument[2..argument.len()] {
+                            "md5" => Algorithm::MD5,
+                            "sha1" => Algorithm::SHA1,
+                            _ => {
+                                print_help_invalid_argument(
+                                    argument,
+                                    "-a",
+                                    HELP_ALGORITHM_ARGUMENTS,
+                                );
+                                algorithm
+                            }
+                        }
+                    }
                 }
                 "-b" if !end_of_command_options => {
                     base64 = true;
@@ -128,8 +170,7 @@ impl State {
                         long_option = true;
                     }
                 }
-                "-" => arguments.push(argument.to_string()),
-                _ if !end_of_command_options && argument[0..1] == *"-" => {
+                _ if !end_of_command_options && arg_slice[0..1] == *"-" && argument.len() > 1 => {
                     print_help_invalid_option(argument)
                 }
                 _ => arguments.push(argument.to_string()),
@@ -141,6 +182,7 @@ impl State {
                     algorithm = match next_arg {
                         Some(arg) => match arg.as_str() {
                             "md5" => Algorithm::MD5,
+                            "sha1" => Algorithm::SHA1,
                             _ => {
                                 print_help_invalid_argument(
                                     arg,
@@ -170,6 +212,7 @@ impl State {
                     if argument.len() >= "--algorithm=".len() && argument[0..11] == *"--algorithm" {
                         algorithm = match &argument[12..argument.len()] {
                             "md5" => Algorithm::MD5,
+                            "sha1" => Algorithm::SHA1,
                             _ => {
                                 print_help_invalid_argument(
                                     &argument[12..argument.len()],
@@ -228,6 +271,7 @@ fn main() {
             data = stdin.clone().into_bytes();
             hashed_result = match state.algorithm {
                 Algorithm::MD5 => MD5::hash_slice(&mut data),
+                Algorithm::SHA1 => SHA1::hash_slice(&mut data),
             }
         } else {
             // Read data from file passed as argument

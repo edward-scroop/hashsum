@@ -6,70 +6,70 @@ use crate::hash_algorithm::Hash;
 // 64 constants calculated as 'Let T[i] denote the i-th element of the table, which is equal to the integer part
 // of 4294967296 times abs(sin(i)), where i is in radians.' in rfc 1321.
 const CONSTANTS: [u32; 64] = [
-    0xD7_6A_A4_78_u32.to_le(),
-    0xE8_C7_B7_56_u32.to_le(),
-    0x24_20_70_DB_u32.to_le(),
-    0xC1_BD_CE_EE_u32.to_le(),
-    0xF5_7C_0F_AF_u32.to_le(),
-    0x47_87_C6_2A_u32.to_le(),
-    0xA8_30_46_13_u32.to_le(),
-    0xFD_46_95_01_u32.to_le(),
-    0x69_80_98_D8_u32.to_le(),
-    0x8B_44_F7_AF_u32.to_le(),
-    0xFF_FF_5B_B1_u32.to_le(),
-    0x89_5C_D7_BE_u32.to_le(),
-    0x6B_90_11_22_u32.to_le(),
-    0xFD_98_71_93_u32.to_le(),
-    0xA6_79_43_8E_u32.to_le(),
-    0x49_B4_08_21_u32.to_le(),
-    0xF6_1E_25_62_u32.to_le(),
-    0xC0_40_B3_40_u32.to_le(),
-    0x26_5E_5A_51_u32.to_le(),
-    0xE9_B6_C7_AA_u32.to_le(),
-    0xD6_2F_10_5D_u32.to_le(),
-    0x02_44_14_53_u32.to_le(),
-    0xD8_A1_E6_81_u32.to_le(),
-    0xE7_D3_FB_C8_u32.to_le(),
-    0x21_E1_CD_E6_u32.to_le(),
-    0xC3_37_07_D6_u32.to_le(),
-    0xF4_D5_0D_87_u32.to_le(),
-    0x45_5A_14_ED_u32.to_le(),
-    0xA9_E3_E9_05_u32.to_le(),
-    0xFC_EF_A3_F8_u32.to_le(),
-    0x67_6F_02_D9_u32.to_le(),
-    0x8D_2A_4C_8A_u32.to_le(),
-    0xFF_FA_39_42_u32.to_le(),
-    0x87_71_F6_81_u32.to_le(),
-    0x6D_9D_61_22_u32.to_le(),
-    0xFD_E5_38_0C_u32.to_le(),
-    0xA4_BE_EA_44_u32.to_le(),
-    0x4B_DE_CF_A9_u32.to_le(),
-    0xF6_BB_4B_60_u32.to_le(),
-    0xBE_BF_BC_70_u32.to_le(),
-    0x28_9B_7E_C6_u32.to_le(),
-    0xEA_A1_27_FA_u32.to_le(),
-    0xD4_EF_30_85_u32.to_le(),
-    0x04_88_1D_05_u32.to_le(),
-    0xD9_D4_D0_39_u32.to_le(),
-    0xE6_DB_99_E5_u32.to_le(),
-    0x1F_A2_7C_F8_u32.to_le(),
-    0xC4_AC_56_65_u32.to_le(),
-    0xF4_29_22_44_u32.to_le(),
-    0x43_2A_FF_97_u32.to_le(),
-    0xAB_94_23_A7_u32.to_le(),
-    0xFC_93_A0_39_u32.to_le(),
-    0x65_5B_59_C3_u32.to_le(),
-    0x8F_0C_CC_92_u32.to_le(),
-    0xFF_EF_F4_7D_u32.to_le(),
-    0x85_84_5D_D1_u32.to_le(),
-    0x6F_A8_7E_4F_u32.to_le(),
-    0xFE_2C_E6_E0_u32.to_le(),
-    0xA3_01_43_14_u32.to_le(),
-    0x4E_08_11_A1_u32.to_le(),
-    0xF7_53_7E_82_u32.to_le(),
-    0xBD_3A_F2_35_u32.to_le(),
-    0x2A_D7_D2_BB_u32.to_le(),
-    0xEB_86_D3_91_u32.to_le(),
+    0xD7_6A_A4_78_u32,
+    0xE8_C7_B7_56_u32,
+    0x24_20_70_DB_u32,
+    0xC1_BD_CE_EE_u32,
+    0xF5_7C_0F_AF_u32,
+    0x47_87_C6_2A_u32,
+    0xA8_30_46_13_u32,
+    0xFD_46_95_01_u32,
+    0x69_80_98_D8_u32,
+    0x8B_44_F7_AF_u32,
+    0xFF_FF_5B_B1_u32,
+    0x89_5C_D7_BE_u32,
+    0x6B_90_11_22_u32,
+    0xFD_98_71_93_u32,
+    0xA6_79_43_8E_u32,
+    0x49_B4_08_21_u32,
+    0xF6_1E_25_62_u32,
+    0xC0_40_B3_40_u32,
+    0x26_5E_5A_51_u32,
+    0xE9_B6_C7_AA_u32,
+    0xD6_2F_10_5D_u32,
+    0x02_44_14_53_u32,
+    0xD8_A1_E6_81_u32,
+    0xE7_D3_FB_C8_u32,
+    0x21_E1_CD_E6_u32,
+    0xC3_37_07_D6_u32,
+    0xF4_D5_0D_87_u32,
+    0x45_5A_14_ED_u32,
+    0xA9_E3_E9_05_u32,
+    0xFC_EF_A3_F8_u32,
+    0x67_6F_02_D9_u32,
+    0x8D_2A_4C_8A_u32,
+    0xFF_FA_39_42_u32,
+    0x87_71_F6_81_u32,
+    0x6D_9D_61_22_u32,
+    0xFD_E5_38_0C_u32,
+    0xA4_BE_EA_44_u32,
+    0x4B_DE_CF_A9_u32,
+    0xF6_BB_4B_60_u32,
+    0xBE_BF_BC_70_u32,
+    0x28_9B_7E_C6_u32,
+    0xEA_A1_27_FA_u32,
+    0xD4_EF_30_85_u32,
+    0x04_88_1D_05_u32,
+    0xD9_D4_D0_39_u32,
+    0xE6_DB_99_E5_u32,
+    0x1F_A2_7C_F8_u32,
+    0xC4_AC_56_65_u32,
+    0xF4_29_22_44_u32,
+    0x43_2A_FF_97_u32,
+    0xAB_94_23_A7_u32,
+    0xFC_93_A0_39_u32,
+    0x65_5B_59_C3_u32,
+    0x8F_0C_CC_92_u32,
+    0xFF_EF_F4_7D_u32,
+    0x85_84_5D_D1_u32,
+    0x6F_A8_7E_4F_u32,
+    0xFE_2C_E6_E0_u32,
+    0xA3_01_43_14_u32,
+    0x4E_08_11_A1_u32,
+    0xF7_53_7E_82_u32,
+    0xBD_3A_F2_35_u32,
+    0x2A_D7_D2_BB_u32,
+    0xEB_86_D3_91_u32,
 ];
 
 // Defines number of bits to rotate for each iteration.
@@ -82,10 +82,10 @@ const SHIFTS: [u32; 64] = [
 pub struct MD5 {}
 
 struct MD5Context {
-    a_le: u32,
-    b_le: u32,
-    c_le: u32,
-    d_le: u32,
+    a: u32,
+    b: u32,
+    c: u32,
+    d: u32,
     total_data_size_bits: u64,
     non_zero_padding_required: bool,
     padded: bool,
@@ -95,10 +95,10 @@ struct MD5Context {
 impl Default for MD5Context {
     fn default() -> Self {
         MD5Context {
-            a_le: 0x67_45_23_01_u32.to_le(),
-            b_le: 0xEF_CD_AB_89_u32.to_le(),
-            c_le: 0x98_BA_DC_FE_u32.to_le(),
-            d_le: 0x10_32_54_76_u32.to_le(),
+            a: 0x67_45_23_01_u32,
+            b: 0xEF_CD_AB_89_u32,
+            c: 0x98_BA_DC_FE_u32,
+            d: 0x10_32_54_76_u32,
             total_data_size_bits: 0,
             non_zero_padding_required: true,
             padded: false,
@@ -153,19 +153,21 @@ impl MD5 {
             data_block = temp_vec.as_slice();
         }
 
-        // Load 512 data block into 32 bit words.
+        // Load 512 bit data block into 16 little-endian 32 bit words.
         let mut words = [0u32; 16];
         for i in 0..16 {
-            words[i] = (words[i] & 0xFFFFFF00) | data_block[i * 4] as u32;
-            words[i] = (words[i] & 0xFFFF00FF) | (data_block[i * 4 + 1] as u32) << 8;
-            words[i] = (words[i] & 0xFF00FFFF) | (data_block[i * 4 + 2] as u32) << 16;
-            words[i] = (words[i] & 0x00FFFFFF) | (data_block[i * 4 + 3] as u32) << 24;
+            words[i] = u32::from_le_bytes([
+                data_block[i * 4],
+                data_block[i * 4 + 1],
+                data_block[i * 4 + 2],
+                data_block[i * 4 + 3],
+            ]);
         }
 
-        let mut temp_a = context.a_le;
-        let mut temp_b = context.b_le;
-        let mut temp_c = context.c_le;
-        let mut temp_d = context.d_le;
+        let mut temp_a = context.a;
+        let mut temp_b = context.b;
+        let mut temp_c = context.c;
+        let mut temp_d = context.d;
 
         for i in 0..64 {
             let mut f: u32;
@@ -187,34 +189,32 @@ impl MD5 {
 
             //f += temp_a + constants[i as usize] + data_block[g as usize];
             f = f
-                .overflowing_add(
-                    temp_a
-                        .overflowing_add(CONSTANTS[i as usize].overflowing_add(words[g as usize]).0)
-                        .0,
-                )
-                .0;
+                .wrapping_add(temp_a)
+                .wrapping_add(CONSTANTS[i as usize])
+                .wrapping_add(words[g as usize]);
             temp_a = temp_d;
             temp_d = temp_c;
             temp_c = temp_b;
             //temp_b += f << rotate_left(SHIFTS[i as usize]);
-            temp_b = temp_b.overflowing_add(f.rotate_left(SHIFTS[i as usize])).0;
+            temp_b = temp_b.wrapping_add(f.rotate_left(SHIFTS[i as usize]));
         }
 
-        context.a_le = context.a_le.overflowing_add(temp_a).0;
-        context.b_le = context.b_le.overflowing_add(temp_b).0;
-        context.c_le = context.c_le.overflowing_add(temp_c).0;
-        context.d_le = context.d_le.overflowing_add(temp_d).0;
+        context.a = context.a.wrapping_add(temp_a);
+        context.b = context.b.wrapping_add(temp_b);
+        context.c = context.c.wrapping_add(temp_c);
+        context.d = context.d.wrapping_add(temp_d);
 
         if context.padded {
-            let mut message_digest = Vec::with_capacity(64);
-            message_digest.extend_from_slice(&context.a_le.to_le_bytes());
-            message_digest.extend_from_slice(&context.b_le.to_le_bytes());
-            message_digest.extend_from_slice(&context.c_le.to_le_bytes());
-            message_digest.extend_from_slice(&context.d_le.to_le_bytes());
+            // message_digest of 128 bits.
+            let mut message_digest = Vec::with_capacity(16);
+            message_digest.extend_from_slice(&context.a.to_le_bytes());
+            message_digest.extend_from_slice(&context.b.to_le_bytes());
+            message_digest.extend_from_slice(&context.c.to_le_bytes());
+            message_digest.extend_from_slice(&context.d.to_le_bytes());
 
             let mut return_string = String::new();
             for byte in message_digest.iter() {
-                return_string.push_str(&format!("{:02X}", byte));
+                return_string.push_str(&format!("{:02x}", byte));
             }
             context.hash = Some(return_string);
         }
@@ -267,7 +267,7 @@ mod tests {
 
         assert_eq!(
             MD5::hash_slice(&test_vec),
-            "D41D8CD98F00B204E9800998ECF8427E"
+            "d41d8cd98f00b204e9800998ecf8427e"
         );
     }
 
@@ -278,7 +278,7 @@ mod tests {
 
         assert_eq!(
             MD5::hash_slice(&test_vec),
-            "0CC175B9C0F1B6A831C399E269772661"
+            "0cc175b9c0f1b6a831c399e269772661"
         );
 
         test_vec.clear();
@@ -286,7 +286,7 @@ mod tests {
 
         assert_eq!(
             MD5::hash_slice(&test_vec),
-            "900150983CD24FB0D6963F7D28E17F72"
+            "900150983cd24fb0d6963f7d28e17f72"
         );
 
         test_vec.clear();
@@ -294,7 +294,7 @@ mod tests {
 
         assert_eq!(
             MD5::hash_slice(&test_vec),
-            "F96B697D7CB7938D525A2F31AAF161D0"
+            "f96b697d7cb7938d525a2f31aaf161d0"
         );
 
         test_vec.clear();
@@ -302,7 +302,7 @@ mod tests {
 
         assert_eq!(
             MD5::hash_slice(&test_vec),
-            "C3FCD3D76192E4007DFB496CCA67E13B"
+            "c3fcd3d76192e4007dfb496cca67e13b"
         );
 
         test_vec.clear();
@@ -312,7 +312,7 @@ mod tests {
 
         assert_eq!(
             MD5::hash_slice(&test_vec),
-            "D174AB98D277D9F5A5611C2C9F419D9F"
+            "d174ab98d277d9f5a5611c2c9f419d9f"
         );
 
         test_vec.clear();
@@ -323,7 +323,7 @@ mod tests {
 
         assert_eq!(
             MD5::hash_slice(&test_vec),
-            "57EDF4A22BE3C955AC49DA2E2107B67A"
+            "57edf4a22be3c955ac49da2e2107b67a"
         );
     }
 }
