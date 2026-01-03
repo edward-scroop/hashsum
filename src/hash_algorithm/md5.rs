@@ -94,7 +94,7 @@ struct MD5Context {
 
 impl Default for MD5Context {
     fn default() -> Self {
-        MD5Context {
+        Self {
             a: 0x67_45_23_01_u32,
             b: 0xEF_CD_AB_89_u32,
             c: 0x98_BA_DC_FE_u32,

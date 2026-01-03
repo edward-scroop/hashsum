@@ -19,7 +19,7 @@ struct SHA1Context {
 
 impl Default for SHA1Context {
     fn default() -> Self {
-        SHA1Context {
+        Self {
             a: 0x67_45_23_01_u32,
             b: 0xEF_CD_AB_89_u32,
             c: 0x98_BA_DC_FE_u32,
