@@ -27,3 +27,6 @@ incremental = false
 codegen-units = 16
 
 [dependencies]
+
+[lints.clippy]
+unwrap_used = "deny"

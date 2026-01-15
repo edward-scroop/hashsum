@@ -1195,8 +1195,9 @@ impl Hash for SHA224 {
             context = Self::hash_block(context, &[])
         }
 
-        // Cannot panic as a hash will always be produced.
-        context.hash.unwrap()
+        context
+            .hash
+            .expect("Hash should have always been produced.")
     }
 
     fn hash_stream(mut stream: impl std::io::Read) -> std::io::Result<String> {
@@ -1212,8 +1213,9 @@ impl Hash for SHA224 {
             }
         }
 
-        // Cannot panic as a hash will always be produced.
-        Ok(context.hash.unwrap())
+        Ok(context
+            .hash
+            .expect("Hash should have always been produced."))
     }
 }
 
@@ -1235,8 +1237,9 @@ impl Hash for SHA256 {
             context = Self::hash_block(context, &[])
         }
 
-        // Cannot panic as a hash will always be produced.
-        context.hash.unwrap()
+        context
+            .hash
+            .expect("Hash should have always been produced.")
     }
 
     fn hash_stream(mut stream: impl std::io::Read) -> std::io::Result<String> {
@@ -1252,8 +1255,9 @@ impl Hash for SHA256 {
             }
         }
 
-        // Cannot panic as a hash will always be produced.
-        Ok(context.hash.unwrap())
+        Ok(context
+            .hash
+            .expect("Hash should have always been produced."))
     }
 }
 
@@ -1275,8 +1279,9 @@ impl Hash for SHA384 {
             context = Self::hash_block(context, &[])
         }
 
-        // Cannot panic as a hash will always be produced.
-        context.hash.unwrap()
+        context
+            .hash
+            .expect("Hash should have always been produced.")
     }
 
     fn hash_stream(mut stream: impl std::io::Read) -> std::io::Result<String> {
@@ -1292,8 +1297,9 @@ impl Hash for SHA384 {
             }
         }
 
-        // Cannot panic as a hash will always be produced.
-        Ok(context.hash.unwrap())
+        Ok(context
+            .hash
+            .expect("Hash should have always been produced."))
     }
 }
 
@@ -1315,8 +1321,9 @@ impl Hash for SHA512 {
             context = Self::hash_block(context, &[])
         }
 
-        // Cannot panic as a hash will always be produced.
-        context.hash.unwrap()
+        context
+            .hash
+            .expect("Hash should have always been produced.")
     }
 
     fn hash_stream(mut stream: impl std::io::Read) -> std::io::Result<String> {
@@ -1332,8 +1339,9 @@ impl Hash for SHA512 {
             }
         }
 
-        // Cannot panic as a hash will always be produced.
-        Ok(context.hash.unwrap())
+        Ok(context
+            .hash
+            .expect("Hash should have always been produced."))
     }
 }
 
@@ -1355,8 +1363,9 @@ impl Hash for SHA512_224 {
             context = Self::hash_block(context, &[])
         }
 
-        // Cannot panic as a hash will always be produced.
-        context.hash.unwrap()
+        context
+            .hash
+            .expect("Hash should have always been produced.")
     }
 
     fn hash_stream(mut stream: impl std::io::Read) -> std::io::Result<String> {
@@ -1372,8 +1381,9 @@ impl Hash for SHA512_224 {
             }
         }
 
-        // Cannot panic as a hash will always be produced.
-        Ok(context.hash.unwrap())
+        Ok(context
+            .hash
+            .expect("Hash should have always been produced."))
     }
 }
 
@@ -1395,8 +1405,9 @@ impl Hash for SHA512_256 {
             context = Self::hash_block(context, &[])
         }
 
-        // Cannot panic as a hash will always be produced.
-        context.hash.unwrap()
+        context
+            .hash
+            .expect("Hash should have always been produced.")
     }
 
     fn hash_stream(mut stream: impl std::io::Read) -> std::io::Result<String> {
@@ -1412,8 +1423,9 @@ impl Hash for SHA512_256 {
             }
         }
 
-        // Cannot panic as a hash will always be produced.
-        Ok(context.hash.unwrap())
+        Ok(context
+            .hash
+            .expect("Hash should have always been produced."))
     }
 }
 

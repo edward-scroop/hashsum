@@ -78,33 +78,37 @@ pub enum Algorithm {
     FNV64a,
 }
 
-fn print_help_unrecognised_option(arg: impl Display) {
+fn print_help_unrecognised_option(arg: impl Display) -> ! {
     eprintln!("hashsum: unrecognised option '{arg}'\n{HELP_INFO_STRING}");
     process::exit(1);
 }
 
-fn print_help_invalid_option(arg: impl Display) {
+fn print_help_invalid_option(arg: impl Display) -> ! {
     eprintln!("hashsum: invalid option -- '{arg}'\n{HELP_INFO_STRING}");
     process::exit(1);
 }
 
-fn print_help_invalid_argument(arg: impl Display, option: impl Display, valid_arguments: &str) {
+fn print_help_invalid_argument(
+    arg: impl Display,
+    option: impl Display,
+    valid_arguments: &str,
+) -> ! {
     eprintln!(
         "hashsum: invalid argument '{arg}' for '{option}'\n{valid_arguments}\n{HELP_INFO_STRING}"
     );
     process::exit(1);
 }
-fn print_help_option_requires_argument(arg: impl Display) {
+fn print_help_option_requires_argument(arg: impl Display) -> ! {
     eprintln!("hashsum: option requires an argument -- '{arg}'\n{HELP_INFO_STRING}");
     process::exit(1);
 }
 
-fn print_help() {
+fn print_help() -> ! {
     eprintln!("{HELP_STRING}");
     process::exit(0);
 }
 
-fn print_version() {
+fn print_version() -> ! {
     eprintln!(
         "hashsum version {VERSION_MAJOR}.{VERSION_MIN}.{VERSION_PATCH}
 hashsum comes with ABSOLUTELY NO WARRANTY.  This is free software, and you
@@ -134,8 +138,6 @@ fn match_algorithm(algorithm_string: &str, arg_flag: &str) -> Algorithm {
         "fnv64a" => Algorithm::FNV64a,
         _ => {
             print_help_invalid_argument(algorithm_string, arg_flag, HELP_ALGORITHM_ARGUMENTS);
-            // Redudant as rust can't see that print_help_invalid_argument exits aswell.
-            process::exit(1);
         }
     }
 }
@@ -177,8 +179,6 @@ impl State {
                             Some(arg) => match_algorithm(arg, "-a"),
                             None => {
                                 print_help_option_requires_argument("-a");
-                                // Redudant as rust can't see that print_help_invalid_argument exits aswell.
-                                process::exit(1);
                             }
                         }
                     } else {
@@ -221,8 +221,6 @@ impl State {
                                 "--algorithm",
                                 HELP_ALGORITHM_ARGUMENTS,
                             );
-                            // Redudant as rust can't see that print_help_invalid_argument exits aswell.
-                            process::exit(1);
                         }
                     };
                 }

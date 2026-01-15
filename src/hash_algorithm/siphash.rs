@@ -136,8 +136,9 @@ impl Hash for SIPHASH24 {
             context = Self::hash_word(context, &[]);
         }
 
-        // Cannot panic as a hash will always be produced.
-        context.hash.unwrap()
+        context
+            .hash
+            .expect("Hash should have always been produced.")
     }
 
     fn hash_stream(mut stream: impl std::io::Read) -> std::io::Result<String> {
@@ -157,8 +158,9 @@ impl Hash for SIPHASH24 {
             context = Self::hash_word(context, &[])
         }
 
-        // Cannot panic as a hash will always be produced.
-        Ok(context.hash.unwrap())
+        Ok(context
+            .hash
+            .expect("Hash should have always been produced."))
     }
 }
 
